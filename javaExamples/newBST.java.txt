@@ -1,0 +1,6 @@
+addElement: Adds an element to the tree
+removeElement: Removes an element from the tree
+findMax: Returns a reference to the maximum element in the tree
+findMin: Returns a reference to the minimum element
+removeMin
+removeMax

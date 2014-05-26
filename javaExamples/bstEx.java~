@@ -1,0 +1,108 @@
+public class bstEx
+{
+
+	public Node root = null;  //root node
+	Node currentNode = root;
+
+	public boolean IsEmpty() {
+	  return (root == null);
+	}
+
+	Node create(int value) {
+		Node node = new Node();
+		node.value = value;
+		node.parent = null;
+		node.leftChild = null;
+		node.rightChild = null;
+		return node;
+	}
+
+	public void insert(int value) {
+		currentNode = add (root,value);
+		if(IsEmpty() && currentNode != null)
+		root = currentNode;
+		currentNode = root;
+	}
+
+	Node add(Node node, int value) {
+		if(node == null) {
+			node = create(value);
+			return node;	
+		} else if(value < node.value) {
+			if(node.leftChild != null) add(node.leftChild,value);
+			else node.leftChild = create(value);			
+		} else if(value >= node.value) {
+			if(node.rightChild != null)
+			 add(node.rightChild,value);
+			else
+			node.rightChild = create(value);
+		} return null;
+	}
+
+
+	public Node find(int value) {
+		IsEmpty();
+		currentNode = find(root, value);
+    return currentNode;
+		System.out.println("Search returned Node: " + currentNode.value);
+		System.out.println("Node's left child: " + currentNode.leftChild);
+		System.out.println("Node's right child: " + currentNode.rightChild);
+
+	}
+
+	Node find(Node currentNode, int value)
+	{
+
+		while(currentNode.value != value && currentNode != null) {
+			if(value < currentNode.value) {
+				currentNode = currentNode.leftChild; }
+			else if(value > currentNode.value) {
+				currentNode = currentNode.rightChild; }
+			else {
+				currentNode = currentNode.rightChild; }
+		}
+
+		return currentNode;
+
+	}
+
+    public Node getRoot() { return root; }
+
+	private void display(Node input) {
+		if(input == null) {
+		return;
+		}
+		
+		display(input.leftChild);
+		System.out.println(input.value);
+		display(input.rightChild);
+		
+
+	}
+
+	public static void main(String[] args)
+	{
+		bstEx RBT = new bstEx();
+
+		Scanner console = new Scanner(System.in);
+
+		System.out.println("<strong class="highlight">How</strong> many numbers would you like <strong class="highlight">to</strong> enter into the Red Black Tree?");
+		int k = console.nextInt();
+
+		int inputarray[] = new int[k];
+
+		for(int i=0; i< k; i++)
+		{
+
+			System.out.println("Please enter the " + (i+1)+ " value: ");
+			inputarray[i]= console.nextInt();
+		}
+
+		System.out.println("\n\n****Display Start****");
+		for(int i=0; i<k; i++)
+		{
+			RBT.insert(inputarray[i]);
+		}
+		RBT.display(RBT.getRoot());
+	}
+}

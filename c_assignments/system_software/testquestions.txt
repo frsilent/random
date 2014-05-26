@@ -1,0 +1,5 @@
+protection domain
+principle of least privledge
+public key encryptikon encoding/decoding algorithm
+access control lists
+define & implement a class in C++ or java
