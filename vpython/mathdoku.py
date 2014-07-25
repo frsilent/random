@@ -1,6 +1,3 @@
-import crypt
-import hashlib
-
 
 def sum_to_n(n, size, limit=None):
     """
@@ -22,15 +19,6 @@ def sum_to_n(n, size, limit=None):
 def main():
     welcome = """
     Welcome to Roland's super awesome mathdoku helper.
-
-    8888888b. 888    888
-    888   Y88b888    888
-    888    888888    888
-    888   d88P8888888888
-    8888888P" 888    888
-    888 T88b  888    888
-    888  T88b 888    888
-    888   T88b888    888
     """
 
     print welcome
