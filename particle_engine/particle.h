@@ -17,8 +17,8 @@ class Particle {
             this->active = true;
             this->lifespan = 100.0f;
 
-            this->posX = 1;
-            this->posY = 1;
+            this->posX = 0;
+            this->posY = 0;
 
             this->particle_color.r = (1.0f/255)*(rand() % 255 + 1);
             this->particle_color.g = (1.0f/255)*(rand() % 255 + 1);

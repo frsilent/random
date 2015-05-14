@@ -25,7 +25,7 @@ using namespace std;
 #include "particle.h"
 
 
-#define PARTICLE_MAX 100
+#define PARTICLE_MAX 300
 #define ESCAPE 27 //escape key
 
 int window; // GL Window Handle
@@ -39,11 +39,12 @@ void initParticles()
 {
     for(i=0;i<PARTICLE_MAX;i++)
     {
-        particles[i].setPosX(0.1f); particles[i].setPosY(0.1f);
+        //particles[i].setPosX(0.1f); particles[i].setPosY(0.1f);
         particles[i].setvX(((float)rand()/(float)RAND_MAX+1)-1);
         particles[i].setvY(((float)rand()/(float)RAND_MAX+1)-1);
     }
 }
+
 void updateParticles()
 {
     cout<<"Update Particles called!"<<endl<<endl;
@@ -57,6 +58,7 @@ void updateParticles()
         particles[i].setPosY(particles[i].getPosY() + particles[i].getvY());
     }
 }
+
 void drawParticles()
 {
     glTranslated(0.0f,0.0f,-9.0f);
@@ -91,14 +93,15 @@ void drawParticles()
 /* A general OpenGL initialization function.  Sets all of the initial parameters. */
 void InitGL(int Width, int Height)	        // We call this right after our OpenGL window is created.
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);		// This Will Clear The Background Color To Black
-    glClearDepth(1.0);				// Enables Clearing Of The Depth Buffer
-    glDepthFunc(GL_LESS);				// The Type Of Depth Test To Do
-    glEnable(GL_DEPTH_TEST);			// Enables Depth Testing
-    glShadeModel(GL_SMOOTH);			// Enables Smooth Color Shading
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);	// This Will Clear The Background Color To Black
+    glClearDepth(1.0);						// Enables Clearing Of The Depth Buffer
+    glDepthFunc(GL_LESS);					// The Type Of Depth Test To Do
+    glEnable(GL_DEPTH_TEST);				// Enables Depth Testing
+    glShadeModel(GL_SMOOTH);				// Enables Smooth Color Shading
 
     glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();				// Reset The Projection Matrix
+    glLoadIdentity();						// Reset The Projection Matrix
+	glOrtho(0, Width, Height, 0, 0, 1);
 
     gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.1f,100.0f);	// Calculate The Aspect Ratio Of The Window
 
@@ -107,9 +110,9 @@ void InitGL(int Width, int Height)	        // We call this right after our OpenG
 /* The function called when our window is resized (which shouldn't happen, because we're fullscreen) */
 void ReSizeGLScene(int Width, int Height)
 {
-    if (Height==0) Height=1;				// Prevent A Divide By Zero If The Window Is Too Small
+    if (Height==0) Height=1;			// Prevent A Divide By Zero If The Window Is Too Small
 
-    glViewport(0, 0, Width, Height);		// Reset The Current Viewport And Perspective Transformation
+    glViewport(0, 0, Width, Height);	// Reset The Current Viewport And Perspective Transformation
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
