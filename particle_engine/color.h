@@ -1,5 +1,3 @@
-typedef struct Color
-{
+typedef struct Color {
 	float r, g, b, alpha;
-}
-Color;
+    } Color;

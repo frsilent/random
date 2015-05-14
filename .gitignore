@@ -4,6 +4,7 @@ __pycache__/
 
 # Build
 dist/
+a.out
 
 # Node includes
 node_modules/
@@ -17,6 +18,7 @@ node_modules/
 *.o
 *.so
 *.pyc
+*.out
 
 # Packages #
 ############

@@ -2,15 +2,25 @@
  * @Heintze, Darrell R.
  * 6544 10/10/2012
 */
-// compile with g++ particleDemo.cpp -lX11 -lXi -lXmu -lglut -lGL -lGLU -lm //
-#include<stdlib.h>
-#include<iostream>
+// compile with g++ particleDemo.cpp -lX11 -lXi -lXmu -lglut -lGL -lGLU -lm // -framework OpenGL -framework GLUT for osx
+#include <stdlib.h>
+#include <iostream>
 using namespace std;
 
-#include <GL/glut.h>    // Header File For The GLUT Library
-#include <GL/gl.h>	// Header File For The OpenGL32 Library
-#include <GL/glu.h>	// Header File For The GLu32 Library
+// #include <GL/glu.h> // Header File For The GLu32 Library
 #include <unistd.h>     // Header file for sleeping.
+
+#ifdef __APPLE__                    // Header File For The GLUT Library
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+#ifdef __APPLE__                    // Header File For The OpenGL32 Library
+#include <OpenGL/gl.h>
+#else
+#include <GL/gl.h>
+#endif
+
 
 #include "particle.h"
 
@@ -29,7 +39,7 @@ void initParticles()
 {
     for(i=0;i<PARTICLE_MAX;i++)
     {
-        particles[i].setPosX(0.2f); particles[i].setPosY(0.2f);
+        particles[i].setPosX(0.1f); particles[i].setPosY(0.1f);
         particles[i].setvX(((float)rand()/(float)RAND_MAX+1)-1);
         particles[i].setvY(((float)rand()/(float)RAND_MAX+1)-1);
     }
@@ -59,10 +69,10 @@ void drawParticles()
         );
         glBegin(GL_QUADS);
 
-        glVertex3f(particles[i].getPosX(),particles[i].getPoexsY(),0.0f);
-        glVertex3f(particles[i].getPosX()+0.1f,particles[i].getPosY(),0.0f);
-        glVertex3f(particles[i].getPosX()+0.1f,particles[i].getPosY()+0.1f,0.0f);
-        glVertex3f(particles[i].getPosX(),particles[i].getPosY()+0.1f,0.0f);
+        glVertex3f(particles[i].getPosX(), particles[i].getPosY(), 0.0f);
+        glVertex3f(particles[i].getPosX()+0.1f, particles[i].getPosY(), 0.0f);
+        glVertex3f(particles[i].getPosX()+0.1f, particles[i].getPosY()+0.1f,0.0f);
+        glVertex3f(particles[i].getPosX(), particles[i].getPosY()+0.1f, 0.0f);
         glEnd();
         glutSwapBuffers();
 
@@ -112,6 +122,8 @@ void DrawGLScene()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
     glLoadIdentity();				// Reset The View
+
+    updateParticles();
     drawParticles();
 }
 void keyPressed(unsigned char key, int x, int y)

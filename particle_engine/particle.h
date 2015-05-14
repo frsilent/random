@@ -25,7 +25,8 @@ class Particle {
             this->particle_color.b = (1.0f/255)*(rand() % 255 + 1);
             this->particle_color.alpha = 1.0f;
 
-            this->vX = ((float)rand()/(float)RAND_MAX+1)-1; this->vY = ((float)rand()/(float)RAND_MAX+1)-1;
+            this->vX = ((float)rand()/(float)RAND_MAX+1)-1;
+            this->vY = ((float)rand()/(float)RAND_MAX+1)-1;
             this->aX = 0; this->aY = 0;
         }
       //destructor
