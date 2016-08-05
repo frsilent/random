@@ -1,57 +1,33 @@
-/*
-If you are calculating complex things or execute time-consuming API calls, you sometimes want to cache the results. In this case we want you to create a function wrapper, which takes a function and caches its results depending on the arguments, that were applied to the function.
+var testingAdd = function(p1, p2) {
+    return p1 + p2;
+}
 
-Usage example:
-
-var complexFunction = function(arg1, arg2) { complex calculation in here };
-var cachedFunction = cache(complexFunction);
-
-cachedFunction('foo', 'bar'); // complex function should be executed
-cachedFunction('foo', 'bar'); // complex function should not be invoked again, instead the cached result should be returned
-cachedFunction('foo', 'baz'); // should be executed, because the method wasn't invoked before with these arguments
-*/
-
-// function greaterThan(n) {
-//   return function(m) { return m > n; };
-// }
-// var greaterThan10 = greaterThan(10);
-// console.log(greaterThan10(11));
-// → true
-
-
-function complexFunction(p1, p2) {
+function testingMul(p1, p2) {
     return p1 * p2;
 }
 
-var cache = {};
+function cache(originalFunc) {
+    function newFunc() {
+        if(!newFunc.cache) {
+            newFunc.cache = {};
+        }
+        var args = Array.prototype.slice.call(arguments);
+        key = args.join(",");
+        if(!newFunc.cache[key]) {
+            var result = originalFunc.apply(this, arguments);
+            newFunc.cache[key] = result;
+        }
 
-function cache(func) {
-    debug(func);
+        return newFunc.cache[key];
+    }
+    return newFunc;
 }
 
-var cachedFunction = cache(complexFunction(5, 2));
+var cachedAdd = cache(testingAdd);
+var cachedMul = cache(testingMul);
 
-// //our cache object
-// var cache = {};
-// var formatTweets(info) {
-//     //formats tweets, does whatever you want with the tweet information
-// };
-
-// //event
-// $('myForm').addEvent('submit',function() {
-//     var handle = $('handle').value; //davidwalshblog, for example
-//     var cacheHandle = handle.toLowerCase();
-//     if(cache[cacheHandle] != "undefined") {
-//         formatTweets(cache[cacheHandle]);
-//     }
-//     else {
-//         //gitter
-//         var myTwitterGitter = new TwitterGitter(handle,{
-//             count: 10,
-//             onComplete: function(tweets,user) {
-//                 cache[cacheHandle] = tweets;
-//                 formatTweets(tweets);
-//             }
-//         }).retrieve();
-//     }
-// });
+var added = cachedAdd(1,2);
+var added2 = cachedAdd(1,3);
+var added3 = cachedAdd(3,1);
+var addedAgain = cachedAdd(1,2);
+var multiplied = cachedMul(1,2);
